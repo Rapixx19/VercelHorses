@@ -5,7 +5,7 @@
  * Path: src/types/stable.ts
  */
 
-export type Language = 'en' | 'es';
+export type Language = 'en' | 'it';
 
 export interface StableProfile {
   id: string;

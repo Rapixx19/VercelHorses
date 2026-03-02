@@ -2,20 +2,20 @@
  * FILE SUMMARY:
  * A stylized card representing a single horse stall.
  * Handles three states: Occupied (Red), Free (Green), Maintenance (Yellow).
+ * Risk Zone: GREEN (UI Component).
  * Path: src/components/ui/BoxCard.tsx
  */
 
 import React from 'react';
-import { HorseProfile } from '../../types/stable';
 
 interface BoxCardProps {
   id: string;
   status: 'occupied' | 'free' | 'maintenance';
-  horse?: HorseProfile;
-  lang: 'en' | 'es';
+  horseName?: string;
+  lang: 'en' | 'it';
 }
 
-export const BoxCard: React.FC<BoxCardProps> = ({ id, status, horse, lang }) => {
+export const BoxCard: React.FC<BoxCardProps> = ({ id, status, horseName, lang }) => {
   const styles = {
     occupied: 'border-red-400 bg-red-50 text-red-900',
     free: 'border-emerald-400 bg-emerald-50 text-emerald-900',
@@ -24,7 +24,7 @@ export const BoxCard: React.FC<BoxCardProps> = ({ id, status, horse, lang }) => 
 
   const labels = {
     en: { stall: 'Stall', empty: 'Vacant', repair: 'Cleaning' },
-    es: { stall: 'Box', empty: 'Libre', repair: 'Limpieza' },
+    it: { stall: 'Box', empty: 'Libero', repair: 'Pulizia' },
   };
 
   return (
@@ -36,7 +36,7 @@ export const BoxCard: React.FC<BoxCardProps> = ({ id, status, horse, lang }) => 
         <div className={`w-2 h-2 rounded-full ${status === 'free' ? 'bg-emerald-500' : 'bg-current'}`} />
       </div>
       <h3 className="text-lg font-bold truncate">
-        {status === 'occupied' ? horse?.name : status === 'maintenance' ? labels[lang].repair : labels[lang].empty}
+        {status === 'occupied' ? horseName : status === 'maintenance' ? labels[lang].repair : labels[lang].empty}
       </h3>
     </div>
   );
