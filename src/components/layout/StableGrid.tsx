@@ -1,18 +1,34 @@
 /**
  * FILE SUMMARY:
  * The live engine for the 25-box grid.
- * Fetches directly from Supabase.
+ * Fetches directly from Supabase with real-time updates.
+ * Tap a stall to open the detail panel.
  * Risk Zone: GREEN (UI Component).
  * Path: src/components/layout/StableGrid.tsx
  */
 
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { BoxCard } from '../ui/BoxCard';
+import { HorseDetailPanel } from '../ui/HorseDetailPanel';
 import { useStableData } from '@/hooks/useStableData';
+
+interface SelectedBox {
+  horseId: string;
+  boxId: string;
+}
 
 export const StableGrid: React.FC<{ lang: 'en' | 'it' }> = ({ lang }) => {
   const { boxes, loading, error } = useStableData();
+  const [selectedBox, setSelectedBox] = useState<SelectedBox | null>(null);
+
+  const handleBoxClick = (box: any) => {
+    // Extract horse from the box data
+    const horse = Array.isArray(box.horses) ? box.horses[0] : box.horses;
+    if (horse?.id) {
+      setSelectedBox({ horseId: horse.id, boxId: box.id });
+    }
+  };
 
   if (loading) return (
     <div className="p-20 text-center animate-pulse font-black uppercase tracking-widest text-slate-300">
@@ -27,18 +43,29 @@ export const StableGrid: React.FC<{ lang: 'en' | 'it' }> = ({ lang }) => {
   );
 
   return (
-    <section className="p-6 bg-white rounded-3xl shadow-inner min-h-[400px]">
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-        {boxes.map((box) => (
-          <BoxCard
-            key={box.id}
-            id={box.id}
-            status={box.status}
-            horseName={box.horses?.name}
-            lang={lang}
-          />
-        ))}
-      </div>
-    </section>
+    <>
+      <section className="p-6 bg-white rounded-3xl shadow-inner min-h-[400px]">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+          {boxes.map((box) => (
+            <BoxCard
+              key={box.id}
+              id={box.id}
+              status={box.status}
+              horses={box.horses}
+              lang={lang}
+              onClick={() => handleBoxClick(box)}
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* Slide-over Detail Panel */}
+      <HorseDetailPanel
+        horseId={selectedBox?.horseId ?? null}
+        boxId={selectedBox?.boxId}
+        onClose={() => setSelectedBox(null)}
+        lang={lang}
+      />
+    </>
   );
 };

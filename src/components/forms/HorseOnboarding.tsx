@@ -14,12 +14,12 @@ import { crumb, errorCrumb } from '@/lib/logger';
 
 export const HorseOnboarding = ({ lang }: { lang: 'en' | 'it' }) => {
   const { clients, freeBoxes, loading } = useRegistrationData();
-  const [formData, setFormData] = useState({ name: '', client_id: '', box_id: '' });
+  const [formData, setFormData] = useState({ name: '', microchip: '', client_id: '', box_id: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const t = {
-    en: { title: 'New Horse', name: 'Horse Name', owner: 'Owner', box: 'Box', save: 'Register' },
-    it: { title: 'Nuovo Cavallo', name: 'Nome Cavallo', owner: 'Proprietario', box: 'Box', save: 'Registra' }
+    en: { title: 'New Horse', name: 'Horse Name', microchip: 'Microchip ID', owner: 'Owner', box: 'Box', save: 'Register' },
+    it: { title: 'Nuovo Cavallo', name: 'Nome Cavallo', microchip: 'ID Microchip', owner: 'Proprietario', box: 'Box', save: 'Registra' }
   }[lang];
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -55,13 +55,23 @@ export const HorseOnboarding = ({ lang }: { lang: 'en' | 'it' }) => {
       <h2 className="text-2xl font-black uppercase italic mb-6 text-slate-900">{t.title}</h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="text-[10px] font-bold uppercase text-slate-400 mb-1 block">{t.name}</label>
-          <input
-            required
-            className="w-full p-3 bg-slate-50 border-none rounded-xl text-sm"
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          />
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="text-[10px] font-bold uppercase text-slate-400 mb-1 block">{t.name}</label>
+            <input
+              required
+              className="w-full p-3 bg-slate-50 border-none rounded-xl text-sm"
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            />
+          </div>
+          <div>
+            <label className="text-[10px] font-bold uppercase text-slate-400 mb-1 block">{t.microchip}</label>
+            <input
+              placeholder="756..."
+              className="w-full p-3 bg-slate-50 border-none rounded-xl text-sm font-mono"
+              onChange={(e) => setFormData({ ...formData, microchip: e.target.value })}
+            />
+          </div>
         </div>
 
         <div className="grid grid-cols-2 gap-4">

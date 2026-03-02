@@ -7,9 +7,13 @@
 
 export const STABLE_SERVICES = {
   BOARDING: { id: 'BOARDING', en: 'Monthly Boarding', it: 'Pensione Mensile', price: 800 },
-  FARRIER: { id: 'FARRIER', en: 'Farrier Visit', it: 'Visita Maniscalco', price: 60 },
-  TRAINING: { id: 'TRAINING', en: 'Training Session', it: 'Sessione di Addestramento', price: 45 },
-  VET: { id: 'VET', en: 'Vet Checkup', it: 'Controllo Veterinario', price: 0 }, // Variable
+  EXTRA_FEED: { id: 'EXTRA_FEED', en: 'Extra Feed', it: 'Mangime Extra', price: 15 },
+  TRAINING: { id: 'TRAINING', en: 'Training Session', it: 'Sessione di Lavoro', price: 40 },
+  VET: { id: 'VET', en: 'Vet Check', it: 'Controllo Veterinario', price: 50 },
+  FARRIER: { id: 'FARRIER', en: 'Farrier', it: 'Maniscalco', price: 80 },
 };
+
+// Quick-log services (subset shown in the panel)
+export const QUICK_LOG_SERVICES: ServiceID[] = ['EXTRA_FEED', 'TRAINING', 'VET', 'FARRIER'];
 
 export type ServiceID = keyof typeof STABLE_SERVICES;
