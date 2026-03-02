@@ -1,0 +1,29 @@
+/**
+ * FILE SUMMARY:
+ * Root layout for the Next.js application.
+ * Applies global styles and font configuration.
+ * Path: src/app/layout.tsx
+ */
+
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+
+const inter = Inter({ subsets: ['latin'] });
+
+export const metadata: Metadata = {
+  title: 'EquineOS - Stable Management',
+  description: 'Modern stable management system for horse owners',
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <body className={inter.className}>{children}</body>
+    </html>
+  );
+}

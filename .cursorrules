@@ -1,0 +1,22 @@
+/**
+ * CURSOR RULES: THE EQUINE-OS "STABLE-CODE" PROTOCOL
+ * Goal: Zero-bug, high-observability, atomic codebase.
+ */
+
+-- ATOMICITY RULES --
+1. **The 60-Line Rule**: If a file exceeds 60 lines of logic, propose a split into smaller components or hooks immediately.
+2. **Single Responsibility**: One file, one job. (e.g., `useBoxStatus.ts` handles logic, `BoxCard.tsx` handles UI).
+
+-- OBSERVABILITY (THE CRUMBS) --
+3. **Traceability**: Every async function or database call MUST have a `console.log` or `telemetry` marker at the start and end (success/fail).
+4. **Error Boundaries**: Never use empty `catch` blocks. Every error must "leave a crumb" describing the context (e.g., "Failed to fetch Box [ID] in StableGrid").
+
+-- ITERATIVE IMPROVEMENT (THE LOOP) --
+5. **The Refactor Loop**: After implementing a feature, perform an "Equine-Polish" pass:
+   - Can we remove 3 lines?
+   - Is the naming 100% clear?
+   - Are the types too loose?
+6. **Plan Mode First**: Never write code without a 3-step bulleted plan first.
+
+-- FILE HYGIENE --
+7. **File Summaries**: Every file starts with a 3-4 line summary of its role and dependencies.
